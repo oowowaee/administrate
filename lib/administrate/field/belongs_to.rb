@@ -24,11 +24,20 @@ module Administrate
       private
 
       def candidate_resources
+        return associated_class.order("#{order} #{direction}") unless order.nil?
         associated_class.all
       end
 
       def display_candidate_resource(resource)
         associated_dashboard.display_resource(resource)
+      end
+
+      def order
+        options[:order]
+      end
+
+      def direction
+        options[:direction] || 'ASC'
       end
     end
   end
